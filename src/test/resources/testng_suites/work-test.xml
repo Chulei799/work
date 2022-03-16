@@ -1,0 +1,64 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Work Tests - Sign Up Mobile (Android)" verbose="1" parallel="methods">
+
+    <test name="Case 00001 and 00002">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidSignUpTest">
+                <methods>
+                    <include name="goalAndActivityValidationTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Case 00003 and 00004">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidSignUpTest">
+                <methods>
+                    <include name="genderAndAgeTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Case 00005">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidSignUpTest">
+                <methods>
+                    <include name="countryValidationTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Case 00006 and 00007">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidSignUpTest">
+                <methods>
+                    <include name="heightAndCurrentWeightValidationTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Case 00008">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidSignUpTest">
+                <methods>
+                    <include name="weeklyGoalWeightValidationTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Case 00009">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidSignUpTest">
+                <methods>
+                    <include name="weeklyGoalSwitchTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
