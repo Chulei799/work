@@ -18,7 +18,7 @@ public class YouSignUpPage extends YouSignUpPageBase {
     @FindBy(xpath = "//*[contains(@resource-id, 'toolbar')]/android.widget.ImageButton")
     private ExtendedWebElement backButton;
 
-    @FindBy(xpath = "//*[contains(@text, '%s')]")
+    @FindBy(xpath = "//*[contains(@text, '%s') and @class = 'android.widget.RadioButton']")
     private ExtendedWebElement genderRadioButton;
 
     @FindBy(id = "com.myfitnesspal.android:id/birthDate")
@@ -30,8 +30,8 @@ public class YouSignUpPage extends YouSignUpPageBase {
     @FindBy(id = "com.myfitnesspal.android:id/recyclerView")
     private ExtendedWebElement countryList;
 
-    @FindBy(xpath = "//*[contains(@text, '%s')]")
-    private ExtendedWebElement countryName;
+    @FindBy(xpath = "//*[contains(@text, '%s') and @class = 'android.widget.TextView']")
+    private ExtendedWebElement textView;
 
     @FindBy(id = "com.myfitnesspal.android:id/zipcode")
     private ExtendedWebElement zipCodeField;
@@ -64,8 +64,8 @@ public class YouSignUpPage extends YouSignUpPageBase {
     private ExtendedWebElement setButton;
 
     //Height and weight option ex. Feet & Inches, Kilograms, ...
-    @FindBy(xpath = "//*[@text = '%s']")
-    private ExtendedWebElement option;
+    @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/units']//*[@text = '%s']")
+    private ExtendedWebElement unit;
 
     public YouSignUpPage(WebDriver driver) {
         super(driver);
@@ -112,7 +112,7 @@ public class YouSignUpPage extends YouSignUpPageBase {
         if (countryList.isElementNotPresent(ONE_SECOND)) {
             countryText.click(ONE_SECOND);
         }
-        ExtendedWebElement element = countryName.format(country.getName());
+        ExtendedWebElement element = textView.format(country.getName());
         if (element.isPresent(THREE_SECONDS)) {
             swipe(element, countryList, Direction.VERTICAL, TEN_SWIPES, NORMAL_SWIPES);
         } else {
@@ -146,7 +146,7 @@ public class YouSignUpPage extends YouSignUpPageBase {
     public void typeHeight(int centimeters) {
         heightMenu.click(ONE_SECOND);
         units.click(ONE_SECOND);
-        option.format(HeightType.CENTIMETERS.getName()).click(ONE_SECOND);
+        unit.format(HeightType.CENTIMETERS.getName()).click(ONE_SECOND);
         entryOne.type(String.valueOf(centimeters));
         setButton.click(THREE_SECONDS);
     }
@@ -155,7 +155,7 @@ public class YouSignUpPage extends YouSignUpPageBase {
     public void typeHeight(int feet, int inches) {
         heightMenu.click(ONE_SECOND);
         units.click(ONE_SECOND);
-        option.format(HeightType.FEET_INCHES.getName()).click(ONE_SECOND);
+        unit.format(HeightType.FEET_INCHES.getName()).click(ONE_SECOND);
         entryOne.type(String.valueOf(feet));
         entryTwo.type(String.valueOf(inches));
         setButton.click(THREE_SECONDS);
@@ -170,7 +170,7 @@ public class YouSignUpPage extends YouSignUpPageBase {
     public void typeWeight(int kilogramsOrPounds, WeightType type) {
         currentWeightMenu.click(ONE_SECOND);
         units.click(ONE_SECOND);
-        option.format(type.getName()).click(ONE_SECOND);
+        unit.format(type.getName()).click(ONE_SECOND);
         entryOne.type(String.valueOf(kilogramsOrPounds));
         setButton.click(ONE_SECOND);
     }
@@ -179,7 +179,7 @@ public class YouSignUpPage extends YouSignUpPageBase {
     public void typeWeight(int stones, int pounds) {
         currentWeightMenu.click(ONE_SECOND);
         units.click(ONE_SECOND);
-        option.format(WeightType.STONE.getName()).click(ONE_SECOND);
+        unit.format(WeightType.STONE.getName()).click(ONE_SECOND);
         entryOne.type(String.valueOf(stones));
         entryTwo.type(String.valueOf(pounds));
         setButton.click(ONE_SECOND);

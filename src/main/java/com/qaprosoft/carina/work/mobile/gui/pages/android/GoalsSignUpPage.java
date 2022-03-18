@@ -14,8 +14,8 @@ public class GoalsSignUpPage extends GoalsSignUpPageBase {
     @FindBy(id = "com.myfitnesspal.android:id/nextButton")
     private ExtendedWebElement nextButton;
 
-    @FindBy(xpath = "//*[contains(@text, '%s')]")
-    private ExtendedWebElement goalRadioButton;
+    @FindBy(xpath = "//*[contains(@text, '%s') and @class = 'android.widget.CheckedTextView']")
+    private ExtendedWebElement checkedTextView;
 
     public GoalsSignUpPage(WebDriver driver) {
         super(driver);
@@ -23,24 +23,24 @@ public class GoalsSignUpPage extends GoalsSignUpPageBase {
 
     @Override
     public boolean isGoalChecked(Goals goal) {
-        return goalRadioButton.format(goal.getName()).isElementPresent(ONE_SECOND);
+        return checkedTextView.format(goal.getName()).isChecked();
     }
 
     @Override
     public void checkGoal(Goals goal, boolean check) {
         if (check) {
-            goalRadioButton.format(goal.getName()).check();
+            checkedTextView.format(goal.getName()).check();
         } else {
-            goalRadioButton.format(goal.getName()).uncheck();
+            checkedTextView.format(goal.getName()).uncheck();
         }
     }
 
     @Override
     public ActivitySignUpPageBase clickNext() {
-        if (goalRadioButton.format(Goals.GAIN_MUSCLE.getName()).isElementPresent(THREE_SECONDS)) {
+        if (checkedTextView.format(Goals.GAIN_MUSCLE.getName()).isElementPresent(THREE_SECONDS)) {
             nextButton.click(ONE_SECOND);
             nextButton.click(ONE_SECOND);
-            goalRadioButton.format(Goals.LACK_OF_TIME.getName()).click(ONE_SECOND);
+            checkedTextView.format(Goals.LACK_OF_TIME.getName()).click(ONE_SECOND);
             nextButton.click(ONE_SECOND);
             nextButton.click(ONE_SECOND);
         }

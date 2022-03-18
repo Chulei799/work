@@ -13,7 +13,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class ActivitySignUpPage extends ActivitySignUpPageBase {
 
     @FindBy(xpath = "//*[@text = '%s']")
-    private ExtendedWebElement activityLevel;
+    private ExtendedWebElement itemByText;
 
     public ActivitySignUpPage(WebDriver driver) {
         super(driver);
@@ -21,7 +21,7 @@ public class ActivitySignUpPage extends ActivitySignUpPageBase {
 
     @Override
     public YouSignUpPageBase selectActivityLevel(ActivityLevel level) {
-        activityLevel.format(level.getName()).click(ONE_SECOND);
+        itemByText.format(level.getName()).click(ONE_SECOND);
         return initPage(getDriver(), YouSignUpPageBase.class);
     }
 }

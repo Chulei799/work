@@ -18,22 +18,22 @@ public class CreateAccountPage extends CreateAccountPageBase {
     @FindBy(xpath = "//*[@class = 'android.widget.Button' and @text = 'NEXT']")
     private ExtendedWebElement nextButton;
 
-    @FindBy(xpath = "//*[contains(@text, 'Email address already in use.')]")
+    @FindBy(xpath = "//*[@resource-id = 'android:id/message' and @text = 'Email address already in use.')]")
     private ExtendedWebElement emailAlreadyInUseMessage;
 
-    @FindBy(xpath = "//*[contains(@text, 'email address you entered is invalid')]")
+    @FindBy(xpath = "//*[@resource-id = 'android:id/message' and contains(@text, 'email address you entered is invalid')]")
     private ExtendedWebElement invalidEmailMessage;
 
-    @FindBy(xpath = "//*[contains(@text, 'Cancel')]")
+    @FindBy(xpath = "//*[@class = 'android.widget.Button' and @text = 'Cancel']")
     private ExtendedWebElement closeEmailAlreadyInUseMessageButton;
 
-    @FindBy(xpath = "//*[contains(@text, 'OK')]")
+    @FindBy(xpath = "//*[@class = 'android.widget.Button' and @text = 'OK']")
     private ExtendedWebElement closeInvalidEmailMessageButton;
 
     @FindBy(xpath = "//*[@resource-id = 'android:id/message' and @text = 'Please Wait…'")
     private ExtendedWebElement waitMessage;
 
-    @FindBy(xpath = "//*[@content-desc = 'Error']")
+    @FindBy(xpath = "//*[@class = 'android.widget.ImageButton' and @content-desc = 'Error']")
     private ExtendedWebElement passwordError;
 
     public CreateAccountPage(WebDriver driver) {

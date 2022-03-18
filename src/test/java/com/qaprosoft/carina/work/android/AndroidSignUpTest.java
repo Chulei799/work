@@ -35,7 +35,7 @@ public class AndroidSignUpTest implements IAbstractTest, IConstants {
         softAssert.assertTrue(goalsSignUpPage.isGoalChecked(Goals.LOSE_WEIGHT),
                 "[Goals Sigh Up Page] Goal(Lose weight) isn't checked!");
         goalsSignUpPage.checkGoal(Goals.LOSE_WEIGHT, FALSE);
-        softAssert.assertTrue(goalsSignUpPage.isGoalChecked(Goals.LOSE_WEIGHT),
+        softAssert.assertFalse(goalsSignUpPage.isGoalChecked(Goals.LOSE_WEIGHT),
                 "[Goals Sigh Up Page] Goal(Lose weight) isn't unchecked!");
 
         //Case 00002
@@ -65,7 +65,9 @@ public class AndroidSignUpTest implements IAbstractTest, IConstants {
                 "[You Sign Up Page] Male gender isn't selected!");
         youSignUpPage.selectGender(FEMALE);
         softAssert.assertTrue(youSignUpPage.isGenderSelected(FEMALE),
-                "[You Sign Up Page] Gender isn't changed!");
+                "[You Sign Up Page] Female gender isn't selected!");
+        softAssert.assertTrue(youSignUpPage.isGenderSelected(MALE),
+                "[You Sign Up Page] Male gender is selected, but should not!");
         //Case 00004
         youSignUpPage.typeAge(TWENTY_YEARS_OLD);
         softAssert.assertEquals(youSignUpPage.getAge(), TWENTY_YEARS_OLD,

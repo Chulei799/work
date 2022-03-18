@@ -28,11 +28,11 @@ public class WeeklyGoalSignUpPage extends WeeklyGoalSignUpPageBase {
     @FindBy(xpath = "//*[@resource-id = 'android:id/button1' and @text = 'Set']")
     private ExtendedWebElement setButton;
 
-    @FindBy(xpath = "//*[contains(@text, '%s')]")
-    private ExtendedWebElement weeklyGoal;
+    @FindBy(xpath = "//*[@class = 'android.widget.RadioButton' and contains(@text, '%s')]")
+    private ExtendedWebElement weeklyGoalRadioButton;
 
-    @FindBy(xpath = "//*[@text = '%s']")
-    private ExtendedWebElement option;
+    @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/units']//*[@text = '%s']")
+    private ExtendedWebElement unit;
 
     @FindBy(xpath = "//*[@class = 'android.widget.Button' and @text = 'NEXT']")
     private ExtendedWebElement nextButton;
@@ -45,7 +45,7 @@ public class WeeklyGoalSignUpPage extends WeeklyGoalSignUpPageBase {
     public void typeWeight(int kilogramsOrPounds, WeightType type) {
         goalWeightMenu.click(ONE_SECOND);
         units.click(ONE_SECOND);
-        option.format(type.getName()).click(ONE_SECOND);
+        unit.format(type.getName()).click(ONE_SECOND);
         entryOne.type(String.valueOf(kilogramsOrPounds));
         setButton.click(ONE_SECOND);
     }
@@ -54,7 +54,7 @@ public class WeeklyGoalSignUpPage extends WeeklyGoalSignUpPageBase {
     public void typeWeight(int stones, int pounds) {
         goalWeightMenu.click(ONE_SECOND);
         units.click(ONE_SECOND);
-        option.format(WeightType.STONE.getName()).click(ONE_SECOND);
+        unit.format(WeightType.STONE.getName()).click(ONE_SECOND);
         entryOne.type(String.valueOf(stones));
         entryTwo.type(String.valueOf(pounds));
         setButton.click(ONE_SECOND);
@@ -67,10 +67,10 @@ public class WeeklyGoalSignUpPage extends WeeklyGoalSignUpPageBase {
 
     @Override
     public void checkWeeklyGoal(WeeklyGoal goal) {
-        if (weeklyGoal.format(goal.getKg()).isElementPresent(ONE_SECOND)) {
-            weeklyGoal.format(goal.getKg()).click(ONE_SECOND);
-        } else if (weeklyGoal.format(goal.getLbs()).isElementPresent(ONE_SECOND)) {
-            weeklyGoal.format(goal.getLbs()).click(ONE_SECOND);
+        if (weeklyGoalRadioButton.format(goal.getKg()).isElementPresent(ONE_SECOND)) {
+            weeklyGoalRadioButton.format(goal.getKg()).click(ONE_SECOND);
+        } else if (weeklyGoalRadioButton.format(goal.getLbs()).isElementPresent(ONE_SECOND)) {
+            weeklyGoalRadioButton.format(goal.getLbs()).click(ONE_SECOND);
         } else {
             Assert.fail(String.format("Can't find goal with text (" + "%s)", goal));
         }
@@ -78,10 +78,10 @@ public class WeeklyGoalSignUpPage extends WeeklyGoalSignUpPageBase {
 
     @Override
     public boolean isWeeklyGoalChecked(WeeklyGoal goal) {
-        if (weeklyGoal.format(goal.getKg()).isElementPresent(ONE_SECOND)) {
-            return weeklyGoal.format(goal.getKg()).isChecked();
-        } else if (weeklyGoal.format(goal.getLbs()).isElementPresent(ONE_SECOND)) {
-            return weeklyGoal.format(goal.getLbs()).isChecked();
+        if (weeklyGoalRadioButton.format(goal.getKg()).isElementPresent(ONE_SECOND)) {
+            return weeklyGoalRadioButton.format(goal.getKg()).isChecked();
+        } else if (weeklyGoalRadioButton.format(goal.getLbs()).isElementPresent(ONE_SECOND)) {
+            return weeklyGoalRadioButton.format(goal.getLbs()).isChecked();
         } else {
             Assert.fail(String.format("Can't find goal with text (" + "%s)", goal));
             return false;
