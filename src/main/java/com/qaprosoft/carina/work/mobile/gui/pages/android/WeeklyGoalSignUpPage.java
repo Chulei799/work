@@ -2,6 +2,7 @@ package com.qaprosoft.carina.work.mobile.gui.pages.android;
 
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
+import com.qaprosoft.carina.work.mobile.gui.pages.common.CreateAccountPageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.common.WeeklyGoalSignUpPageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.WeeklyGoal;
 import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.WeightType;
@@ -32,6 +33,9 @@ public class WeeklyGoalSignUpPage extends WeeklyGoalSignUpPageBase {
 
     @FindBy(xpath = "//*[@text = '%s']")
     private ExtendedWebElement option;
+
+    @FindBy(xpath = "//*[@class = 'android.widget.Button' and @text = 'NEXT']")
+    private ExtendedWebElement nextButton;
 
     public WeeklyGoalSignUpPage(WebDriver driver) {
         super(driver);
@@ -82,5 +86,11 @@ public class WeeklyGoalSignUpPage extends WeeklyGoalSignUpPageBase {
             Assert.fail(String.format("Can't find goal with text (" + "%s)", goal));
             return false;
         }
+    }
+
+    @Override
+    public CreateAccountPageBase clickNextButton() {
+        nextButton.click(ONE_SECOND);
+        return initPage(getDriver(), CreateAccountPageBase.class);
     }
 }

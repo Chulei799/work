@@ -31,4 +31,12 @@ public interface IConstants {
     public static final int STONE_11 = 11;
     public static final int POUNDS_8 = 8;
     public static final int POUNDS_12 = 12;
+    public static final String JUST_NUMBERS = "0123456789";
+    public static final String JUST_LOWER_CASE_LETTERS = "itriedsohard";
+    public static final String JUST_UPPER_CASE_LETTERS = "ANDGOTSOFAR";
+    public static final String JUST_SPECIAL_SYMBOLS = "!@#$%^&*()_+=";
+    public static final String MIXED_PASSWORD = "Cs50!hU&Y2)";
+    public static final String SHORT_PASSWORD = "short";
+    public static final String CORRECT_EMAIL = "such@email.com";
+    public static final String INCORRECT_EMAIL = "wrong.email.gmail.com";
 }

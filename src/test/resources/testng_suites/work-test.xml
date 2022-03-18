@@ -61,4 +61,24 @@
         </classes>
     </test>
 
+    <test name="Case 00010 and 00011">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidSignUpTest">
+                <methods>
+                    <include name="passwordValidationTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Case 00012">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidSignUpTest">
+                <methods>
+                    <include name="emailValidationTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
 </suite>

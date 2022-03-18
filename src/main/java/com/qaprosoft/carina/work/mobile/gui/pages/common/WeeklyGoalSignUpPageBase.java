@@ -22,4 +22,6 @@ public abstract class WeeklyGoalSignUpPageBase extends AbstractPage implements I
     public abstract void checkWeeklyGoal(WeeklyGoal goal);
 
     public abstract boolean isWeeklyGoalChecked(WeeklyGoal goal);
+
+    public abstract CreateAccountPageBase clickNextButton();
 }
