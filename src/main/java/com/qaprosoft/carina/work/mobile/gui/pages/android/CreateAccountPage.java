@@ -5,6 +5,7 @@ import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebEleme
 import com.qaprosoft.carina.work.mobile.gui.pages.common.CreateAccountPageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = CreateAccountPageBase.class)
 public class CreateAccountPage extends CreateAccountPageBase {
@@ -18,7 +19,7 @@ public class CreateAccountPage extends CreateAccountPageBase {
     @FindBy(xpath = "//*[@class = 'android.widget.Button' and @text = 'NEXT']")
     private ExtendedWebElement nextButton;
 
-    @FindBy(xpath = "//*[@resource-id = 'android:id/message' and @text = 'Email address already in use.')]")
+    @FindBy(xpath = "//*[@resource-id = 'android:id/message' and @text = 'Email address already in use.']")
     private ExtendedWebElement emailAlreadyInUseMessage;
 
     @FindBy(xpath = "//*[@resource-id = 'android:id/message' and contains(@text, 'email address you entered is invalid')]")
@@ -67,12 +68,14 @@ public class CreateAccountPage extends CreateAccountPageBase {
 
     @Override
     public boolean isEmailInUseMessagePresent() {
-        return emailAlreadyInUseMessage.isElementPresent(FIVE_SECONDS);
+        waitUntil(ExpectedConditions.visibilityOf(emailAlreadyInUseMessage.getElement()), TEN_TIMEOUT);
+        return emailAlreadyInUseMessage.isElementPresent(ONE_SECOND);
     }
 
     @Override
     public boolean isInvalidEmailMessagePresent() {
-        return invalidEmailMessage.isElementPresent(FIVE_SECONDS);
+        waitUntil(ExpectedConditions.visibilityOf(invalidEmailMessage.getElement()), TEN_TIMEOUT);
+        return invalidEmailMessage.isElementPresent(ONE_SECOND);
     }
 
     @Override

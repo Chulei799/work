@@ -31,8 +31,8 @@ public class WeeklyGoalSignUpPage extends WeeklyGoalSignUpPageBase {
     @FindBy(xpath = "//*[@class = 'android.widget.RadioButton' and contains(@text, '%s')]")
     private ExtendedWebElement weeklyGoalRadioButton;
 
-    @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/units']//*[@text = '%s']")
-    private ExtendedWebElement unit;
+    @FindBy(xpath = "//*[contains(@text, '%s')]")
+    private ExtendedWebElement itemByText;
 
     @FindBy(xpath = "//*[@class = 'android.widget.Button' and @text = 'NEXT']")
     private ExtendedWebElement nextButton;
@@ -42,22 +42,18 @@ public class WeeklyGoalSignUpPage extends WeeklyGoalSignUpPageBase {
     }
 
     @Override
-    public void typeWeight(int kilogramsOrPounds, WeightType type) {
+    public void typeWeight(double weight, WeightType type) {
         goalWeightMenu.click(ONE_SECOND);
         units.click(ONE_SECOND);
-        unit.format(type.getName()).click(ONE_SECOND);
-        entryOne.type(String.valueOf(kilogramsOrPounds));
-        setButton.click(ONE_SECOND);
-    }
-
-    @Override
-    public void typeWeight(int stones, int pounds) {
-        goalWeightMenu.click(ONE_SECOND);
-        units.click(ONE_SECOND);
-        unit.format(WeightType.STONE.getName()).click(ONE_SECOND);
-        entryOne.type(String.valueOf(stones));
-        entryTwo.type(String.valueOf(pounds));
-        setButton.click(ONE_SECOND);
+        itemByText.format(type.getName()).click(ONE_SECOND);
+        if (type == WeightType.KILOGRAMS || type == WeightType.POUNDS) {
+            entryOne.type(String.valueOf(weight));
+        } else if (type == WeightType.STONE) {
+            String[] str = String.valueOf(weight).split("\\.");
+            entryOne.type(str[0]);
+            entryTwo.type(str[1]);
+        }
+        setButton.click(THREE_SECONDS);
     }
 
     @Override

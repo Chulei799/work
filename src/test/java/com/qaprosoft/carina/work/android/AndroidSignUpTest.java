@@ -11,15 +11,29 @@ import com.qaprosoft.carina.work.mobile.gui.pages.common.WeeklyGoalSignUpPageBas
 import com.qaprosoft.carina.work.mobile.gui.pages.common.WelcomePageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.common.YouSignUpPageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.constants.IConstants;
-import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.ActivityLevel;
-import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.Country;
-import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.Goals;
-import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.WeeklyGoal;
-import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.WeightType;
+import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.*;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class AndroidSignUpTest implements IAbstractTest, IConstants {
+
+    public static final String JUST_NUMBERS = "0123456789";
+    public static final String JUST_LOWER_CASE_LETTERS = "itriedsohard";
+    public static final String JUST_UPPER_CASE_LETTERS = "ANDGOTSOFAR";
+    public static final String JUST_SPECIAL_SYMBOLS = "!@#$%^&*()_+=";
+    public static final String MIXED_PASSWORD = "Cs50!hU&Y2)";
+    public static final String SHORT_PASSWORD = "short";
+    public static final String HEIGHT = "height";
+    public static final String WEIGHT = "weight";
+
+    public String convertDoubleToStr(double d, String type) {
+        String[] str = String.valueOf(d).split("\\.");
+        if (type == HEIGHT) {
+            return str[0] + " ft, " + str[1] + " in";
+        } else {
+            return str[0] + " st, " + str[1] + " lbs";
+        }
+    }
 
     @Test()
     @MethodOwner(owner = "chulei799")
@@ -66,7 +80,7 @@ public class AndroidSignUpTest implements IAbstractTest, IConstants {
         youSignUpPage.selectGender(FEMALE);
         softAssert.assertTrue(youSignUpPage.isGenderSelected(FEMALE),
                 "[You Sign Up Page] Female gender isn't selected!");
-        softAssert.assertTrue(youSignUpPage.isGenderSelected(MALE),
+        softAssert.assertFalse(youSignUpPage.isGenderSelected(MALE),
                 "[You Sign Up Page] Male gender is selected, but should not!");
         //Case 00004
         youSignUpPage.typeAge(TWENTY_YEARS_OLD);
@@ -117,24 +131,22 @@ public class AndroidSignUpTest implements IAbstractTest, IConstants {
         youSignUpPage.typeZipCode(ZIP_CODE);
         youSignUpPage.clickToNextPage();
 
-        youSignUpPage.typeHeight(CENTIMETERS_177);
-        softAssert.assertEquals(youSignUpPage.getHeight(), String.format("%s" + " cm", CENTIMETERS_177),
+        youSignUpPage.typeHeight(CORRECT_HEIGHT_IN_CM, HeightType.CENTIMETERS);
+        softAssert.assertEquals(youSignUpPage.getHeight(), String.format("%s" + " cm", (int)CORRECT_HEIGHT_IN_CM),
                 "[You Sign Up Page] Height isn't entered correct!(centimeters)");
-        youSignUpPage.typeHeight(SIX_FEET, TWO_INCHES);
-        softAssert.assertEquals(youSignUpPage.getHeight(),
-                String.format("%s" + " ft, " + "%s" + " in", SIX_FEET, TWO_INCHES),
+        youSignUpPage.typeHeight(CORRECT_HEIGHT_IN_FEET, HeightType.FEET_INCHES);
+        softAssert.assertEquals(youSignUpPage.getHeight(), convertDoubleToStr(CORRECT_HEIGHT_IN_FEET, HEIGHT),
                 "[You Sign Up Page] Height isn't entered correct!(feet & inches)");
 
         //Case 00007
-        youSignUpPage.typeWeight(KILOGRAMS_75, WeightType.KILOGRAMS);
-        softAssert.assertEquals(youSignUpPage.getWeight(), String.format("%s" + " kg", KILOGRAMS_75),
+        youSignUpPage.typeWeight(CURRENT_WEIGHT_IN_KG, WeightType.KILOGRAMS);
+        softAssert.assertEquals(youSignUpPage.getWeight(), String.format("%s" + " kg", CURRENT_WEIGHT_IN_KG),
                 "[You Sign Up Page] Weight isn't entered correct!(kilograms)");
-        youSignUpPage.typeWeight(POUNDS_155, WeightType.POUNDS);
-        softAssert.assertEquals(youSignUpPage.getWeight(), String.format("%s" + " lbs", POUNDS_155),
+        youSignUpPage.typeWeight(IConstants.CURRENT_WEIGHT_IN_POUNDS, WeightType.POUNDS);
+        softAssert.assertEquals(youSignUpPage.getWeight(), String.format("%s" + " lbs", (int)CURRENT_WEIGHT_IN_POUNDS),
                 "[You Sign Up Page] Weight isn't entered correct!(pounds)");
-        youSignUpPage.typeWeight(STONE_12, POUNDS_8);
-        softAssert.assertEquals(youSignUpPage.getWeight(),
-                String.format("%s" + " st, " + "%s" + " lbs", STONE_12, POUNDS_8),
+        youSignUpPage.typeWeight(CURRENT_WEIGHT_IN_STONE, WeightType.STONE);
+        softAssert.assertEquals(youSignUpPage.getWeight(), convertDoubleToStr(CURRENT_WEIGHT_IN_STONE, WEIGHT),
                 "[You Sign Up Page] Weight isn't entered correct!(stone)");
 
         softAssert.assertAll();
@@ -156,19 +168,18 @@ public class AndroidSignUpTest implements IAbstractTest, IConstants {
         youSignUpPage.typeAge(TWENTY_YEARS_OLD);
         youSignUpPage.typeZipCode(ZIP_CODE);
         youSignUpPage.clickToNextPage();
-        youSignUpPage.typeHeight(CENTIMETERS_177);
-        youSignUpPage.typeWeight(KILOGRAMS_75, WeightType.KILOGRAMS);
+        youSignUpPage.typeHeight(CORRECT_HEIGHT_IN_CM, HeightType.CENTIMETERS);
+        youSignUpPage.typeWeight(CURRENT_WEIGHT_IN_KG, WeightType.KILOGRAMS);
         WeeklyGoalSignUpPageBase weeklyGoalPage = youSignUpPage.clickToWeeklyGoalPage();
 
-        weeklyGoalPage.typeWeight(KILOGRAMS_70, WeightType.KILOGRAMS);
-        softAssert.assertEquals(weeklyGoalPage.getWeight(), String.format("%s" + " kg", KILOGRAMS_70),
+        weeklyGoalPage.typeWeight(GOAL_WEIGHT_IN_KG, WeightType.KILOGRAMS);
+        softAssert.assertEquals(weeklyGoalPage.getWeight(), String.format("%s" + " kg", (int)GOAL_WEIGHT_IN_KG),
                 "[You Sign Up Page] Weight isn't entered correct!(kilograms)");
-        weeklyGoalPage.typeWeight(POUNDS_145, WeightType.POUNDS);
-        softAssert.assertEquals(weeklyGoalPage.getWeight(), String.format("%s" + " lbs", POUNDS_145),
+        weeklyGoalPage.typeWeight(GOAL_WEIGHT_IN_POUNDS, WeightType.POUNDS);
+        softAssert.assertEquals(weeklyGoalPage.getWeight(), String.format("%s" + " lbs", (int)GOAL_WEIGHT_IN_POUNDS),
                 "[You Sign Up Page] Weight isn't entered correct!(pounds)");
-        weeklyGoalPage.typeWeight(STONE_11, POUNDS_12);
-        softAssert.assertEquals(weeklyGoalPage.getWeight(),
-                String.format("%s" + " st, " + "%s" + " lbs", STONE_11, POUNDS_12),
+        weeklyGoalPage.typeWeight(GOAL_WEIGHT_IN_STONE, WeightType.STONE);
+        softAssert.assertEquals(weeklyGoalPage.getWeight(), convertDoubleToStr(GOAL_WEIGHT_IN_STONE, WEIGHT),
                 "[You Sign Up Page] Weight isn't entered correct!(stone)");
 
         softAssert.assertAll();
@@ -190,11 +201,11 @@ public class AndroidSignUpTest implements IAbstractTest, IConstants {
         youSignUpPage.typeAge(TWENTY_YEARS_OLD);
         youSignUpPage.typeZipCode(ZIP_CODE);
         youSignUpPage.clickToNextPage();
-        youSignUpPage.typeHeight(CENTIMETERS_177);
-        youSignUpPage.typeWeight(KILOGRAMS_75, WeightType.KILOGRAMS);
+        youSignUpPage.typeHeight(CORRECT_HEIGHT_IN_CM, HeightType.CENTIMETERS);
+        youSignUpPage.typeWeight(CURRENT_WEIGHT_IN_KG, WeightType.KILOGRAMS);
         WeeklyGoalSignUpPageBase weeklyGoalPage = youSignUpPage.clickToWeeklyGoalPage();
+        weeklyGoalPage.typeWeight(GOAL_WEIGHT_IN_KG, WeightType.KILOGRAMS);
 
-        weeklyGoalPage.typeWeight(KILOGRAMS_70, WeightType.KILOGRAMS);
         weeklyGoalPage.checkWeeklyGoal(WeeklyGoal.ONE_QUARTER_KG_PW);
         softAssert.assertTrue(weeklyGoalPage.isWeeklyGoalChecked(WeeklyGoal.ONE_QUARTER_KG_PW),
                 String.format("[Weekly Goal Page] %s not checked!", WeeklyGoal.ONE_QUARTER_KG_PW));
@@ -208,7 +219,7 @@ public class AndroidSignUpTest implements IAbstractTest, IConstants {
         softAssert.assertTrue(weeklyGoalPage.isWeeklyGoalChecked(WeeklyGoal.ONE_KG_PW),
                 String.format("[Weekly Goal Page] %s not checked!", WeeklyGoal.ONE_KG_PW));
 
-        weeklyGoalPage.typeWeight(POUNDS_145, WeightType.POUNDS);
+        weeklyGoalPage.typeWeight(GOAL_WEIGHT_IN_POUNDS, WeightType.POUNDS);
         weeklyGoalPage.checkWeeklyGoal(WeeklyGoal.ONE_QUARTER_KG_PW);
         softAssert.assertTrue(weeklyGoalPage.isWeeklyGoalChecked(WeeklyGoal.ONE_QUARTER_KG_PW),
                 String.format("[Weekly Goal Page] %s not checked!", WeeklyGoal.ONE_QUARTER_KG_PW));
@@ -241,10 +252,10 @@ public class AndroidSignUpTest implements IAbstractTest, IConstants {
         youSignUpPage.typeAge(TWENTY_YEARS_OLD);
         youSignUpPage.typeZipCode(ZIP_CODE);
         youSignUpPage.clickToNextPage();
-        youSignUpPage.typeHeight(CENTIMETERS_177);
-        youSignUpPage.typeWeight(KILOGRAMS_75, WeightType.KILOGRAMS);
+        youSignUpPage.typeHeight(CORRECT_HEIGHT_IN_CM, HeightType.CENTIMETERS);
+        youSignUpPage.typeWeight(CURRENT_WEIGHT_IN_KG, WeightType.KILOGRAMS);
         WeeklyGoalSignUpPageBase weeklyGoalPage = youSignUpPage.clickToWeeklyGoalPage();
-        weeklyGoalPage.typeWeight(KILOGRAMS_70, WeightType.KILOGRAMS);
+        weeklyGoalPage.typeWeight(GOAL_WEIGHT_IN_KG, WeightType.KILOGRAMS);
         CreateAccountPageBase createAccountPage = weeklyGoalPage.clickNextButton();
         createAccountPage.typeEmail(CORRECT_EMAIL);
 
@@ -300,10 +311,10 @@ public class AndroidSignUpTest implements IAbstractTest, IConstants {
         youSignUpPage.typeAge(TWENTY_YEARS_OLD);
         youSignUpPage.typeZipCode(ZIP_CODE);
         youSignUpPage.clickToNextPage();
-        youSignUpPage.typeHeight(CENTIMETERS_177);
-        youSignUpPage.typeWeight(KILOGRAMS_75, WeightType.KILOGRAMS);
+        youSignUpPage.typeHeight(CORRECT_HEIGHT_IN_CM, HeightType.CENTIMETERS);
+        youSignUpPage.typeWeight(CURRENT_WEIGHT_IN_KG, WeightType.KILOGRAMS);
         WeeklyGoalSignUpPageBase weeklyGoalPage = youSignUpPage.clickToWeeklyGoalPage();
-        weeklyGoalPage.typeWeight(KILOGRAMS_70, WeightType.KILOGRAMS);
+        weeklyGoalPage.typeWeight(GOAL_WEIGHT_IN_KG, WeightType.KILOGRAMS);
         CreateAccountPageBase createAccountPage = weeklyGoalPage.clickNextButton();
         createAccountPage.typePassword(MIXED_PASSWORD);
 

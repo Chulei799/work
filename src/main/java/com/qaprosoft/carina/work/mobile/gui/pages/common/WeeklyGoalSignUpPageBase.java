@@ -13,9 +13,7 @@ public abstract class WeeklyGoalSignUpPageBase extends AbstractPage implements I
         super(driver);
     }
 
-    public abstract void typeWeight(int kilogramsOrPounds, WeightType type);
-
-    public abstract void typeWeight(int stones, int pounds);
+    public abstract void typeWeight(double weight, WeightType type);
 
     public abstract String getWeight();
 

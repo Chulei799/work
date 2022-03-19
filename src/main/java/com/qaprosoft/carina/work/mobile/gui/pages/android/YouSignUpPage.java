@@ -64,8 +64,8 @@ public class YouSignUpPage extends YouSignUpPageBase {
     private ExtendedWebElement setButton;
 
     //Height and weight option ex. Feet & Inches, Kilograms, ...
-    @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/units']//*[@text = '%s']")
-    private ExtendedWebElement unit;
+    @FindBy(xpath = "//*[contains(@text, '%s')]")
+    private ExtendedWebElement itemByText;
 
     public YouSignUpPage(WebDriver driver) {
         super(driver);
@@ -143,21 +143,17 @@ public class YouSignUpPage extends YouSignUpPageBase {
     }
 
     @Override
-    public void typeHeight(int centimeters) {
+    public void typeHeight(double height, HeightType type) {
         heightMenu.click(ONE_SECOND);
         units.click(ONE_SECOND);
-        unit.format(HeightType.CENTIMETERS.getName()).click(ONE_SECOND);
-        entryOne.type(String.valueOf(centimeters));
-        setButton.click(THREE_SECONDS);
-    }
-
-    @Override
-    public void typeHeight(int feet, int inches) {
-        heightMenu.click(ONE_SECOND);
-        units.click(ONE_SECOND);
-        unit.format(HeightType.FEET_INCHES.getName()).click(ONE_SECOND);
-        entryOne.type(String.valueOf(feet));
-        entryTwo.type(String.valueOf(inches));
+        itemByText.format(type.getName()).click(ONE_SECOND);
+        if (type == HeightType.CENTIMETERS) {
+            entryOne.type(String.valueOf((int)height));
+        } else if (type == HeightType.FEET_INCHES) {
+            String[] str = String.valueOf(height).split("\\.");
+            entryOne.type(str[0]);
+            entryTwo.type(str[1]);
+        }
         setButton.click(THREE_SECONDS);
     }
 
@@ -167,22 +163,18 @@ public class YouSignUpPage extends YouSignUpPageBase {
     }
 
     @Override
-    public void typeWeight(int kilogramsOrPounds, WeightType type) {
+    public void typeWeight(double weight, WeightType type) {
         currentWeightMenu.click(ONE_SECOND);
         units.click(ONE_SECOND);
-        unit.format(type.getName()).click(ONE_SECOND);
-        entryOne.type(String.valueOf(kilogramsOrPounds));
-        setButton.click(ONE_SECOND);
-    }
-
-    @Override
-    public void typeWeight(int stones, int pounds) {
-        currentWeightMenu.click(ONE_SECOND);
-        units.click(ONE_SECOND);
-        unit.format(WeightType.STONE.getName()).click(ONE_SECOND);
-        entryOne.type(String.valueOf(stones));
-        entryTwo.type(String.valueOf(pounds));
-        setButton.click(ONE_SECOND);
+        itemByText.format(type.getName()).click(ONE_SECOND);
+        if (type == WeightType.KILOGRAMS || type == WeightType.POUNDS) {
+            entryOne.type(String.valueOf(weight));
+        } else if (type == WeightType.STONE) {
+            String[] str = String.valueOf(weight).split("\\.");
+            entryOne.type(str[0]);
+            entryTwo.type(str[1]);
+        }
+        setButton.click(THREE_SECONDS);
     }
 
     @Override
