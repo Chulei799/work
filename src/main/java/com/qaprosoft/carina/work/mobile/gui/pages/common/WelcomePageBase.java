@@ -11,4 +11,6 @@ public abstract class WelcomePageBase extends AbstractPage implements IConstants
     }
 
     public abstract SignUpPageBase clickSignUp();
+
+    public abstract LoginPageBase clickLogin();
 }
