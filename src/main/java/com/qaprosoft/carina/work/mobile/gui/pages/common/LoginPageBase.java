@@ -18,7 +18,7 @@ public abstract class LoginPageBase extends AbstractPage implements IConstants {
 
     public abstract String getPassword();
 
-    public abstract void clickLoginButton();
+    public abstract HomePageBase clickLoginButton();
 
     public abstract boolean isProgressPleaseWaitPresent();
 }

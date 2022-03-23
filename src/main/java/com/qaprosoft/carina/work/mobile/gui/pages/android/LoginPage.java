@@ -2,9 +2,11 @@ package com.qaprosoft.carina.work.mobile.gui.pages.android;
 
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
+import com.qaprosoft.carina.work.mobile.gui.pages.common.HomePageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.common.LoginPageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = LoginPageBase.class)
 public class LoginPage extends LoginPageBase {
@@ -46,8 +48,9 @@ public class LoginPage extends LoginPageBase {
     }
 
     @Override
-    public void clickLoginButton() {
+    public HomePageBase clickLoginButton() {
         loginButton.click(ONE_SECOND);
+        return initPage(getDriver(), HomePageBase.class);
     }
 
     @Override

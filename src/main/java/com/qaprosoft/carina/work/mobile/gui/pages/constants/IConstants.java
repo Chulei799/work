@@ -8,6 +8,8 @@ public interface IConstants {
     public static final int THREE_TIMEOUT = 3;
     public static final int TEN_TIMEOUT = 10;
     public static final int TWENTY_TIMEOUT = 20;
+    public static final int THIRTY_FIVE_TIMEOUT = 35;
+    public static final int ONE_MINUTE_TIMEOUT = 60;
     public static final boolean TRUE = true;
     public static final boolean FALSE = false;
     public static final int FIRST = 0;
@@ -17,8 +19,10 @@ public interface IConstants {
     public static final int FAST_SWIPES = 300;
     public static final int NORMAL_SWIPES = 600;
     public static final int SLOW_SWIPES = 1200;
+    public static final int TWENTY_SWIPES = 20;
     public static final int TEN_SWIPES = 10;
     public static final int FIVE_SWIPES = 5;
+    public static final int ONE_SWIPE = 1;
     public static final int ZIP_CODE = 98165;
     public static final double CORRECT_HEIGHT_IN_FEET = 6.2;
     public static final double CORRECT_HEIGHT_IN_CM = 177;
