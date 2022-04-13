@@ -3,9 +3,9 @@ package com.qaprosoft.carina.work.mobile.gui.pages.android;
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.work.mobile.gui.pages.common.HomePageBase;
+import com.qaprosoft.carina.work.mobile.gui.pages.components.BottomNavigationBar;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -50,6 +50,9 @@ public class HomePage extends HomePageBase {
 
     @FindBy(id = "com.myfitnesspal.android:id/floating_button_fg")
     private ExtendedWebElement floatingButton;
+
+    @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/bottomNavigationBar']")
+    private BottomNavigationBar bottomNavigationBar;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -130,5 +133,10 @@ public class HomePage extends HomePageBase {
     @Override
     public void closeComments() {
         backButton.click(ONE_SECOND);
+    }
+
+    @Override
+    public BottomNavigationBar getBottomNavigationBar() {
+        return bottomNavigationBar;
     }
 }
