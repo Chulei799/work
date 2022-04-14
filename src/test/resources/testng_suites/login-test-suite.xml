@@ -1,0 +1,34 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Work Tests - Log In Mobile (Android)" verbose="1" parallel="methods">
+
+    <test name="Case 00013">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidLogInTest">
+                <methods>
+                    <include name="logInTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Case 00014, 00016, 00017">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidLogInTest">
+                <methods>
+                    <include name="likeAndDislikeAPostTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Case 00015">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidLogInTest">
+                <methods>
+                    <include name="likeACommentTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
