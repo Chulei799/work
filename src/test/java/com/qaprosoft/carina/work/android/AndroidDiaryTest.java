@@ -28,7 +28,6 @@ public class AndroidDiaryTest implements IAbstractTest, IConstants {
         SoftAssert softAssert = new SoftAssert();
 
         HomePageBase homePage = authService.logIn();
-        homePage.waitPageToLoad();
         BottomNavigationBar bottomNavigationBar = homePage.getBottomNavigationBar();
         DiaryPageBase diaryPage = (DiaryPageBase) bottomNavigationBar.clickOn(BottomBarElements.DIARY);
         diaryPage.clearDiary();

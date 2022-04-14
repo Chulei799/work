@@ -26,6 +26,8 @@ public class AuthorizationService extends AbstractPage {
         LoginPageBase loginPage = welcomePage.clickLogin();
         loginPage.typeEmail(USER_EMAIL);
         loginPage.typePassword(USER_PASSWORD);
-        return loginPage.clickLoginButton();
+        HomePageBase homePage = loginPage.clickLoginButton();
+        homePage.waitPageToLoad();
+        return homePage;
     }
 }
