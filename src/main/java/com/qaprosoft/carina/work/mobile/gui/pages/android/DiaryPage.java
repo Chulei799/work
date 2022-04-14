@@ -3,8 +3,10 @@ package com.qaprosoft.carina.work.mobile.gui.pages.android;
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.work.mobile.gui.pages.common.DiaryPageBase;
+import com.qaprosoft.carina.work.mobile.gui.pages.common.MealPageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.components.BottomNavigationBar;
 import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.DiaryMealType;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -14,7 +16,7 @@ import java.util.List;
 @DeviceType(pageType = DeviceType.Type.ANDROID_PHONE, parentClass = DiaryPageBase.class)
 public class DiaryPage extends DiaryPageBase {
 
-    @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/txtSectionHeader' and @text = 'Breakfast']")
+    @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/txtSectionHeader' and @text = '%s']")
     private ExtendedWebElement itemByEatTime;
 
     @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/bottomNavigationBar']")
@@ -35,23 +37,14 @@ public class DiaryPage extends DiaryPageBase {
     @FindBy(xpath = "//*[@text = '%s']/parent::*/parent::*/following-sibling::android.view.ViewGroup[1]/descendant::*[contains(@text, 'ADD FOOD')]")
     private ExtendedWebElement itemByText;
 
-    @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/searchEditTextOld']")
-    private ExtendedWebElement searchField;
-
-    @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/searchForTextView']")
-    private ExtendedWebElement searchForTextView;
-
-    @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/text_primary']")
-    private List<ExtendedWebElement> foundMealList;
-
-    @FindBy(xpath = "//*[@content-desc='Add']")
-    private ExtendedWebElement addButton;
-
     @FindBy(xpath = "//*[@text = '%s']/parent::*/parent::*/following-sibling::android.widget.LinearLayout[1]/descendant::*[contains(@resource-id, 'txtItemDescription')]")
     private ExtendedWebElement mealNameInMealType;
 
-    @FindBy(xpath = "//android.widget.Button[@content-desc='NO THANKS']")
-    private ExtendedWebElement noThanksButton;
+    @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/txtSectionHeader']")
+    private List<ExtendedWebElement> listOfMealTypes;
+
+    @FindBy(xpath = "//*[@resource-id = 'com.myfitnesspal.android:id/diary_recycler_view']")
+    private ExtendedWebElement scrollView;
 
     public DiaryPage(WebDriver driver) {
         super(driver);
@@ -59,17 +52,12 @@ public class DiaryPage extends DiaryPageBase {
 
     @Override
     public boolean isPageOpened() {
-        return itemByEatTime.isElementPresent(THREE_SECONDS);
+        return itemByEatTime.format("Breakfast").isElementPresent(THREE_SECONDS);
     }
 
     @Override
     public BottomNavigationBar getBottomNavigationBar() {
         return bottomNavigationBar;
-    }
-
-    @Override
-    public boolean isEditDiaryVisible() {
-        return editDiary.isVisible(ONE_SECOND);
     }
 
     @Override
@@ -85,31 +73,36 @@ public class DiaryPage extends DiaryPageBase {
     }
 
     @Override
-    public void clickAddToMealTime(DiaryMealType mealType) {
+    public MealPageBase clickAddToMealType(DiaryMealType mealType) {
+        swipe(itemByText.format(mealType.getName()), scrollView, Direction.DOWN, FIVE_SWIPES, SLOW_SWIPES);
         itemByText.format(mealType.getName()).click(ONE_SECOND);
+        return initPage(getDriver(), MealPageBase.class);
     }
 
     @Override
-    public void searchForMeal(String meal) {
-        searchField.type(meal);
-        searchForTextView.click(ONE_SECOND);
-    }
-
-    @Override
-    public void selectMealByIndex(int index) {
-        foundMealList.get(index).click(ONE_SECOND);
-    }
-
-    @Override
-    public void clickAddButton() {
-        if(noThanksButton.isElementPresent(ONE_SECOND)) {
-            noThanksButton.click(ONE_SECOND);
+    public boolean isMealInMealType(String meal, DiaryMealType mealType) {
+        int mealTypeIndex = -1;
+        boolean isMealIn = false;
+        swipe(itemByEatTime.format(mealType.getName()), scrollView, Direction.VERTICAL_DOWN_FIRST, FIVE_SWIPES, SLOW_SWIPES);
+        swipe(itemByText.format(mealType.getName()), scrollView, Direction.UP, FIVE_SWIPES, SLOW_SWIPES);
+        for(int i = 0; i < listOfMealTypes.size(); i++) {
+            if (listOfMealTypes.get(i).getText().equals(mealType.getName())) {
+                mealTypeIndex = i;
+                break;
+            }
         }
-        addButton.click(ONE_SECOND);
-    }
-
-    @Override
-    public String getFirstMealNameInMealType(DiaryMealType mealType) {
-        return mealNameInMealType.format(mealType.getName()).getText();
+        if (mealTypeIndex >= 0) {
+            List<ExtendedWebElement> listOfMealsInMealType = findExtendedWebElements(By.xpath(
+                    String.format("//*[contains(@resource-id, 'sectionHeaderRelative')]/following-sibling::android.widget.LinearLayout" +
+                            "[count(preceding-sibling::android.widget.RelativeLayout)=%s]/descendant::*" +
+                            "[contains(@resource-id, 'txtItemDescription')]", mealTypeIndex + 1)));
+            for(int i = 0; i < listOfMealsInMealType.size(); i++) {
+                if (listOfMealsInMealType.get(i).getText().equals(meal)) {
+                    isMealIn = true;
+                    break;
+                }
+            }
+        }
+        return isMealIn;
     }
 }
