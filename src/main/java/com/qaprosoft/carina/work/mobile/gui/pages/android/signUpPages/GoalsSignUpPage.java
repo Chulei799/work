@@ -1,9 +1,9 @@
-package com.qaprosoft.carina.work.mobile.gui.pages.android;
+package com.qaprosoft.carina.work.mobile.gui.pages.android.signUpPages;
 
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
-import com.qaprosoft.carina.work.mobile.gui.pages.common.ActivitySignUpPageBase;
-import com.qaprosoft.carina.work.mobile.gui.pages.common.GoalsSignUpPageBase;
+import com.qaprosoft.carina.work.mobile.gui.pages.common.signUpPages.ActivitySignUpPageBase;
+import com.qaprosoft.carina.work.mobile.gui.pages.common.signUpPages.GoalsSignUpPageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.Goals;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
