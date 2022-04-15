@@ -24,6 +24,8 @@ public abstract class DiaryPageBase extends AbstractPage implements IConstants, 
 
     public abstract boolean isMealInMealType(String meal, DiaryMealType mealType);
 
+    public abstract EditMealPageBase openMealInMealType(String meal, DiaryMealType mealType);
+
     public abstract AbstractPage openOptionPage(DiaryOptions option);
 
     public abstract boolean isTimestampActive();

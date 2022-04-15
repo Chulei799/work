@@ -4,6 +4,7 @@ import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.work.mobile.gui.pages.common.DiaryPageBase;
+import com.qaprosoft.carina.work.mobile.gui.pages.common.EditMealPageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.common.MealPageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.components.BottomNavigationBar;
 import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.DiaryMealType;
@@ -139,6 +140,37 @@ public class DiaryPage extends DiaryPageBase {
             }
         }
         return isMealIn;
+    }
+
+    @Override
+    public EditMealPageBase openMealInMealType(String meal, DiaryMealType mealType) {
+        int mealTypeIndex = -1;
+        //Swipe to meal type and then to add button of this meal type
+        swipe(itemByEatTime.format(mealType.getName()), scrollView, Direction.VERTICAL_DOWN_FIRST, FIVE_SWIPES, SLOW_SWIPES);
+        swipe(addFoodButton.format(mealType.getName()), scrollView, Direction.UP, FIVE_SWIPES, SLOW_SWIPES);
+
+        //Here we're looking for index of meal type in list, with index soon we will find block with food list of our meal type
+        for(int i = 0; i < listOfMealTypes.size(); i++) {
+            if (listOfMealTypes.get(i).getText().equals(mealType.getName())) {
+                mealTypeIndex = i;
+                break;
+            }
+        }
+        //If we found block of food of searched meal type
+        if (mealTypeIndex >= 0) {
+            //Here we get list of food of this meal type by index we founded before
+            List<ExtendedWebElement> listOfMealsInMealType = findExtendedWebElements(By.xpath(
+                    String.format("//*[contains(@resource-id, 'sectionHeaderRelative')]/following-sibling::android.widget.LinearLayout" +
+                            "[count(preceding-sibling::android.widget.RelativeLayout)=%s]/descendant::*" +
+                            "[contains(@resource-id, 'txtItemDescription')]", mealTypeIndex + 1)));
+            for (ExtendedWebElement element : listOfMealsInMealType) {
+                if (element.getText().equals(meal)) {
+                    element.click(ONE_SECOND);
+                    return initPage(getDriver(), EditMealPageBase.class);
+                }
+            }
+        }
+        return null;
     }
 
     @Override
