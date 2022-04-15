@@ -1,9 +1,9 @@
-package com.qaprosoft.carina.work.mobile.gui.pages.android;
+package com.qaprosoft.carina.work.mobile.gui.pages.android.signUpPages;
 
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
-import com.qaprosoft.carina.work.mobile.gui.pages.common.CreateAccountPageBase;
-import com.qaprosoft.carina.work.mobile.gui.pages.common.WeeklyGoalSignUpPageBase;
+import com.qaprosoft.carina.work.mobile.gui.pages.common.signUpPages.CreateAccountPageBase;
+import com.qaprosoft.carina.work.mobile.gui.pages.common.signUpPages.WeeklyGoalSignUpPageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.WeeklyGoal;
 import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.WeightType;
 import org.openqa.selenium.WebDriver;

@@ -1,7 +1,7 @@
-package com.qaprosoft.carina.work.mobile.gui.pages.common;
+package com.qaprosoft.carina.work.mobile.gui.pages.common.signUpPages;
 
-import com.qaprosoft.carina.core.foundation.utils.mobile.IMobileUtils;
 import com.qaprosoft.carina.core.gui.AbstractPage;
+import com.qaprosoft.carina.work.mobile.gui.pages.common.signUpPages.CreateAccountPageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.constants.IConstants;
 import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.WeeklyGoal;
 import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.WeightType;

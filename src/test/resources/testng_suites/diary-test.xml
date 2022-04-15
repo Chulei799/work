@@ -1,0 +1,34 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Work Tests - Log In Mobile (Android)" verbose="1" parallel="methods">
+
+    <test name="Case 00018">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidDiaryTest">
+                <methods>
+                    <include name="addMealToBreakfastTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Case 00019, 00020, 00021">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidDiaryTest">
+                <methods>
+                    <include name="onAndOffTimestampTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+    <test name="Case 00022">
+        <classes>
+            <class name="com.qaprosoft.carina.work.android.AndroidDiaryTest">
+                <methods>
+                    <include name="changeTimestampTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

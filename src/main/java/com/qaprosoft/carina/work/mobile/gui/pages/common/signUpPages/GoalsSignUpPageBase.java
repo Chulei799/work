@@ -1,6 +1,7 @@
-package com.qaprosoft.carina.work.mobile.gui.pages.common;
+package com.qaprosoft.carina.work.mobile.gui.pages.common.signUpPages;
 
 import com.qaprosoft.carina.core.gui.AbstractPage;
+import com.qaprosoft.carina.work.mobile.gui.pages.common.signUpPages.ActivitySignUpPageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.constants.IConstants;
 import com.qaprosoft.carina.work.mobile.gui.pages.utils.enums.Goals;
 import org.openqa.selenium.WebDriver;

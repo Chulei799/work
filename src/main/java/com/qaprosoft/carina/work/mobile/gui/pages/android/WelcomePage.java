@@ -3,7 +3,7 @@ package com.qaprosoft.carina.work.mobile.gui.pages.android;
 import com.qaprosoft.carina.core.foundation.utils.factory.DeviceType;
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.work.mobile.gui.pages.common.LoginPageBase;
-import com.qaprosoft.carina.work.mobile.gui.pages.common.SignUpPageBase;
+import com.qaprosoft.carina.work.mobile.gui.pages.common.signUpPages.SignUpPageBase;
 import com.qaprosoft.carina.work.mobile.gui.pages.common.WelcomePageBase;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;

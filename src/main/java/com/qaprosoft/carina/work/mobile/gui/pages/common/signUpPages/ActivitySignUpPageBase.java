@@ -1,4 +1,4 @@
-package com.qaprosoft.carina.work.mobile.gui.pages.common;
+package com.qaprosoft.carina.work.mobile.gui.pages.common.signUpPages;
 
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import com.qaprosoft.carina.work.mobile.gui.pages.constants.IConstants;
